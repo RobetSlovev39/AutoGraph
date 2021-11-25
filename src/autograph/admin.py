@@ -37,5 +37,3 @@ class DeviceAdmin(admin.ModelAdmin):
     search_fields = ('name', 'device_id')
     list_filter = ('group', 'schema', 'active')
     actions = (turn_on_active, turn_off_active)
-
-
