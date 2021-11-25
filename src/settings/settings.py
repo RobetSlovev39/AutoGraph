@@ -78,7 +78,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'europe/kaliningrad'
+TIME_ZONE, TIME_DIFFERENCE_IN_MIN = 'europe/kaliningrad', 120
 
 USE_I18N = True
 
@@ -92,9 +92,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
+# Параметры для Celery ( Redis )
 CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
 CELERY_RESULT_BACKEND = os.environ['CELERY_RESULT_BACKEND']
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESILT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+# Параметры для AutoGraph
+AG_SERVER = os.environ['AG_SERVER']
+AG_LOGIN = os.environ['AG_LOGIN']
+AG_PASSWORD = os.environ['AG_PASSWORD']

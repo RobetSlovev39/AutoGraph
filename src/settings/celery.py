@@ -1,3 +1,5 @@
+# Настройка Celery
+
 import os
 from celery import Celery
 
