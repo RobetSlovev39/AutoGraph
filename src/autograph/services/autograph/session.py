@@ -27,10 +27,14 @@ class Session:
         return False
 
     def post(self, method: str, data: dict) -> dict | bool:
-        response = httpx.post(
-            self.api + method,
-            data={**data, **self.auth_params}
-        )
+        try:
+            response = httpx.post(
+                self.api + method,
+                data={**data, **self.auth_params},
+                timeout=50
+            )
+        except httpx.ReadTimeout:
+            response = self.post(method, data)
 
         if response:
             return response.json()
@@ -38,6 +42,15 @@ class Session:
         return False
 
     def get_schemas(self) -> dict | bool:
+        '''  Получение схем '''
+
         return self.post(
             'EnumSchemas', dict()
+        )
+
+    def get_devices(self, schema_id: str) -> dict | bool:
+        ''' Получение машин '''
+
+        return self.post(
+            'EnumDevices', {'schemaID': schema_id}
         )

@@ -1,3 +1,4 @@
+from .services.core import update_devices
 from django.http import HttpResponse, HttpRequest
 
 
