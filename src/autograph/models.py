@@ -11,8 +11,8 @@ class Schema(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'схему'
-        verbose_name_plural = 'схемы'
+        verbose_name = 'Схему'
+        verbose_name_plural = 'Схемы'
 
 
 class DeviceGroup(models.Model):
@@ -58,3 +58,22 @@ class Device(models.Model):
     class Meta:
         verbose_name = 'Машину'
         verbose_name_plural = 'Машины'
+
+
+class GeofenceGroup(models.Model):
+    ''' Модель групп геозон, которые будут отображаться на карте '''
+
+    name = models.CharField(
+        'Название группы',
+        max_length=50,
+        help_text='Имя группы, геозоны которой будут обрабатываться'
+    )
+
+    active = models.BooleanField('Включено', default=True, help_text='Показывается ли группа геозон на карте')
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name = 'Группу геозон'
+        verbose_name_plural = 'Группы геозон'

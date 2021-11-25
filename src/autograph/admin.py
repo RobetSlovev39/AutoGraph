@@ -37,3 +37,11 @@ class DeviceAdmin(admin.ModelAdmin):
     search_fields = ('name', 'device_id')
     list_filter = ('group', 'schema', 'active')
     actions = (turn_on_active, turn_off_active)
+
+
+@admin.register(models.GeofenceGroup)
+class GeofenceGroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'active')
+    search_fields = ('name',)
+    list_filter = ('active',)
+    actions = (turn_on_active, turn_off_active)
