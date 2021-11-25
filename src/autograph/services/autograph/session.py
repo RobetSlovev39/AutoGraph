@@ -25,3 +25,19 @@ class Session:
             return True
 
         return False
+
+    def post(self, method: str, data: dict) -> dict | bool:
+        response = httpx.post(
+            self.api + method,
+            data={**data, **self.auth_params}
+        )
+
+        if response:
+            return response.json()
+
+        return False
+
+    def get_schemas(self) -> dict | bool:
+        return self.post(
+            'EnumSchemas', dict()
+        )

@@ -7,3 +7,5 @@ autograph_session = Session(
     password=os.environ['AG_PASSWORD'],  # settings.AG_PASSWORD
     time_difference=120  # settings.TIME_DIFFERENCE_IN_MIN
 )
+
+__all__ = ('autograph_session',)
