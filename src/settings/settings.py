@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
 
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'autograph.apps.AutographConfig'
 ]
 
 MIDDLEWARE = [
