@@ -8,7 +8,6 @@ class Session:
 
     def __init__(self, api: str, login: str, password: str, time_difference: int) -> None:
         self.api, self.login, self.password, self.time_difference = api, login, password, time_difference
-        self.auth()
 
     def auth(self) -> bool:
         response = httpx.post(
@@ -27,6 +26,9 @@ class Session:
         return False
 
     def post(self, method: str, data: dict) -> dict | bool:
+        if self.auth_params is None:
+            self.auth()
+
         try:
             response = httpx.post(
                 self.api + method,

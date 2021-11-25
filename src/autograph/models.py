@@ -26,6 +26,13 @@ class DeviceGroup(models.Model):
 
     active = models.BooleanField('Включено', default=True, help_text='Показывается ли группа машин на карте')
 
+    schema = models.ForeignKey(
+        Schema,
+        on_delete=models.CASCADE,
+        verbose_name='Схема',
+        related_name='device_groups',
+    )
+
     def __str__(self) -> str:
         return self.name
 
@@ -48,12 +55,8 @@ class Device(models.Model):
         related_name='devices'
     )
 
-    schema = models.ForeignKey(
-        Schema,
-        on_delete=models.CASCADE,
-        verbose_name='Схема',
-        related_name='devices'
-    )
+    def __str__(self) -> str:
+        return self.name
 
     class Meta:
         verbose_name = 'Машину'
@@ -71,9 +74,38 @@ class GeofenceGroup(models.Model):
 
     active = models.BooleanField('Включено', default=True, help_text='Показывается ли группа геозон на карте')
 
+    schema = models.ForeignKey(
+        Schema,
+        on_delete=models.CASCADE,
+        verbose_name='Схема',
+        related_name='geofence_groups'
+    )
+
     def __str__(self) -> str:
         return self.name
 
     class Meta:
         verbose_name = 'Группу геозон'
         verbose_name_plural = 'Группы геозон'
+
+
+class Geofence(models.Model):
+    ''' Модель геозоны '''
+
+    name = models.CharField('Название', max_length=50)
+    geofence_id = models.CharField('ID', max_length=50, unique=True)
+    active = models.BooleanField('Включено', default=True, help_text='Показывается ли геозона на карте')
+
+    group = models.ForeignKey(
+        GeofenceGroup,
+        on_delete=models.CASCADE,
+        verbose_name='Группа',
+        related_name='geofences'
+    )
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name = 'Геозону'
+        verbose_name_plural = 'Геозоны'

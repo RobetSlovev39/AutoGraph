@@ -21,7 +21,7 @@ class SchemaAdmin(admin.ModelAdmin):
 
 @admin.register(models.DeviceGroup)
 class DeviceGroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'active')
+    list_display = ('name', 'active', 'schema')
     search_fields = ('name',)
     list_filter = ('active',)
     actions = (turn_on_active, turn_off_active)
@@ -30,18 +30,30 @@ class DeviceGroupAdmin(admin.ModelAdmin):
 @admin.register(models.Device)
 class DeviceAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Информация о машине', {'fields': ('name', 'device_id', 'active')}),
-        ('Дополнительная информация', {'fields': ('group', 'schema')})
+        ('Информация о машине', {'fields': ('name', 'device_id')}),
+        ('Дополнительная информация', {'fields': ('group', 'active')})
     )
     list_display = ('name', 'device_id', 'active')
     search_fields = ('name', 'device_id')
-    list_filter = ('group', 'schema', 'active')
+    list_filter = ('group', 'active')
     actions = (turn_on_active, turn_off_active)
 
 
 @admin.register(models.GeofenceGroup)
 class GeofenceGroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'active')
+    list_display = ('name', 'active', 'schema')
     search_fields = ('name',)
     list_filter = ('active',)
+    actions = (turn_on_active, turn_off_active)
+
+
+@admin.register(models.Geofence)
+class GeofenceAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Информация о геозоне', {'fields': ('name', 'geofence_id')}),
+        ('Дополнительная информация', {'fields': ('group', 'active')})
+    )
+    list_display = ('name', 'geofence_id', 'active')
+    search_fields = ('name', 'geofence_id')
+    list_filter = ('group', 'active')
     actions = (turn_on_active, turn_off_active)
